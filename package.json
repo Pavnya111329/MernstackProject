@@ -1,0 +1,27 @@
+{
+  "name": "mernstackproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev":"nodemon backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pavnya111329/MernstackProject.git"
+  },
+  "author": "chaitanya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pavnya111329/MernstackProject/issues"
+  },
+  "homepage": "https://github.com/Pavnya111329/MernstackProject#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.6.5",
+    "nodemon": "^2.0.20"
+  }
+}
