@@ -3,10 +3,22 @@ const mongoose = require("mongoose");
 const ProductSchema = new mongoose.Schema(
   {
     
-    productId: Number,
-        quantity: Number,
-        name: String,
-        price: Number
+    productId: {
+        type :Number ,
+        required :[true,"please provide Product ID"]
+    },
+        quantity: {
+            type :Number ,
+            required :[true,"please provide Product quantity "]
+        },
+        name:  {
+            type :String ,
+            required :[true,"please provide Product name "]
+        },
+        price:  {
+            type :Number ,
+            required:[true,"please provide Product price "]
+        }
   },
   { timestamps: true }
 );

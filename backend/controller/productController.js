@@ -1,7 +1,10 @@
 const Product = require("../models/productModel")
+const catchAsyncErrors = require("../middleware/catchAsyncError")
 
+const ApiFeature = require("../utils/apiFeature");
+const { query } = require("express");
 //Create Product
-exports.CreatProduct = async (req, res, next) => {
+exports.CreatProduct = catchAsyncErrors( async (req, res, next) => {
     let product = await Product.create(req.body);
 
     res.status(200).json({
@@ -9,26 +12,30 @@ exports.CreatProduct = async (req, res, next) => {
         product,
         massage: "product added succesfully"
     })
-}
+})
 //getProduct
-exports.getAllproduct = async (req, res) => {
-    let product = await Product.find()
-
+exports.getAllproduct = catchAsyncErrors( async (req, res) => {
+    let apiFeature = new ApiFeature(Product.find(),req.query).search()
+    let product = await apiFeature.query;
+//   let apifetacture = new ApiFeature(Product.find(),req.query).search()
+//    let product = await apifetacture.quary
     res.status(200).json({
         success: true,
         product,
         massage: "product Get succesfully"
     })
-}
+})
 
 //getSingleProduct
-exports.getSingleproduct = async (req, res, next) => {
+exports.getSingleproduct = catchAsyncErrors (async (req, res, next) => {
+ 
     let product = await Product.findById(req.params.id)
 
     if (!product) {
-        res.status(400).json({
+        res.status(500).json({
             success: false,
-            massage: "product not found "
+            statuscode : 404,
+            massage: "product not found"
         })
     }
     res.status(200).json({
@@ -36,15 +43,16 @@ exports.getSingleproduct = async (req, res, next) => {
         product,
         massage: "Single product Get succesfully"
     })
-}
+})
 
 //Update PRoduct
-exports.updateProduct = async (req, res) => {
+exports.updateProduct = catchAsyncErrors (async (req, res) => {
     let product = await Product.findById(req.params.id)
 
     if (!product) {
-        res.status(400).json({
+        res.status(500).json({
             success: false,
+            statuscode : 404,
             massage: "product not found "
         })
     }
@@ -59,14 +67,15 @@ exports.updateProduct = async (req, res) => {
         product,
         massage: "product Update succesfully"
     })
-}
+})
 //Delete PRoduct
-exports.deleteProduct = async (req, res) => {
+exports.deleteProduct = catchAsyncErrors (async (req, res) => {
     let product = await Product.findById(req.params.id);
 
     if (!product) {
-        res.status(400).json({
+        res.status(500).json({
             success: false,
+            statuscode : 404,
             massage: "product not found "
         })
     }
@@ -77,4 +86,4 @@ exports.deleteProduct = async (req, res) => {
         product,
         massage: "product delete succesfully"
     })
-}
+})
